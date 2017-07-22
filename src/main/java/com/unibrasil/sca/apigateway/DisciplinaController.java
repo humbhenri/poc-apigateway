@@ -16,7 +16,7 @@ public class DisciplinaController {
 
 	@RequestMapping("/disciplinas")
 	public String getDisciplinas() {
-		String disciplinas = restTemplate.getForObject("http://CURSOS", String.class);
+		String disciplinas = restTemplate.getForObject("http://CURSOS" + "/disciplinas", String.class);
 		if (disciplinas == null) {
 			throw new Erro404();
 		}
