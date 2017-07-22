@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,7 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableEurekaServer
 @SpringBootApplication
-public class ApigatewayApplication {
+@EnableWebSecurity
+public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApigatewayApplication.class, args);
@@ -33,4 +37,12 @@ public class ApigatewayApplication {
             }
         };
     }
+    
+    @Override
+	protected void configure(HttpSecurity http) throws Exception {
+    	http.csrf().disable().antMatcher("/**")
+        .authorizeRequests()
+        .anyRequest().permitAll();
+	}
+
 }
