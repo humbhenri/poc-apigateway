@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,12 +20,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableWebSecurity
 public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 	@Autowired
 	private AuthProvider authProvider;
+	
+	 @Autowired
+	 private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApigatewayApplication.class, args);
@@ -48,20 +52,27 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-        .csrf().disable()
-        .exceptionHandling()
-        .authenticationEntryPoint(restAuthenticationEntryPoint)
-        .and()
-        .authorizeRequests()
-        .antMatchers("/aluno").authenticated()
-        .and()
-        .logout();
+		http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
+			.and()
+			.authorizeRequests().antMatchers("/aluno").hasRole("ALUNO")
+			.and()
+	        .formLogin()
+	        .successHandler(authenticationSuccessHandler)
+	        .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+			.and()
+			.logout();
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authProvider);
+		// auth.authenticationProvider(authProvider);
+		auth.inMemoryAuthentication()
+			.withUser("aluno").password("aluno").roles("ALUNO");
+	}
+	
+	@Bean
+    public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler() {
+        return new MySavedRequestAwareAuthenticationSuccessHandler();
 	}
 
 }
