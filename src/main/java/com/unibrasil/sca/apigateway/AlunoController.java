@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlunoController {
 	
 	@RequestMapping("/aluno")
-	public String getInfoAlunoLogado() {
+	public Object getInfoAlunoLogado() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.isAuthenticated()) {
-			return auth.getName();
+			return auth.getPrincipal();
 		}
 		return null;
 	}
