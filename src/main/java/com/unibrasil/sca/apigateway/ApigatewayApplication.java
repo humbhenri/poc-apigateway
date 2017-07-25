@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableEurekaServer
 @SpringBootApplication
 @EnableWebSecurity
+@EnableZuulProxy
 public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -45,20 +47,6 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 		return new RestTemplate();
 	}
 	
-//	@Bean
-//	public FilterRegistrationBean corsFilter() { 
-//	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//	    CorsConfiguration config = new CorsConfiguration();
-//	    config.setAllowCredentials(true);
-//	    config.addAllowedOrigin("*");
-//	    config.addAllowedHeader("*");
-//	    config.addAllowedMethod("*");
-//	    source.registerCorsConfiguration("/**", config);
-//	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-//	    bean.setOrder(0);
-//	    return bean;
-//	}
-
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
