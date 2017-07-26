@@ -72,8 +72,6 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// auth.authenticationProvider(authProvider);
-		// auth.inMemoryAuthentication().withUser("aluno").password("aluno").roles("ALUNO");
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
 				.usersByUsernameQuery(
