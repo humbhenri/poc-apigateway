@@ -1,0 +1,24 @@
+<div class="jumbotron" *ngIf="!mostraDisciplinas">
+    <p class="lead">Você ainda não realizou nenhuma proposta de matrícula para este semestre.</p>
+    <p>
+        <a class="btn btn-lg btn-success" role="button" (click)="fazerProposta()">
+        Fazer proposta
+    </a>
+    </p>
+</div>
+
+<span *ngIf="mostraDisciplinas">
+<div class="panel panel-default" 
+    *ngFor="let disciplina of disciplinasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
+    <div class="panel-heading">
+        {{disciplina.nome}} - {{disciplina.id}}
+        <button [ngClass]="getCSSClasses(disciplina)" (click)="onSelect(disciplina)">{{getLabel(disciplina)}}</button>
+    </div>
+    <div class="panel-body">
+        Aulas: {{disciplina.aulas}} <br> Requisitos: {{disciplina.requisitos | disciplina}} <br> Créditos: {{disciplina.creditos}}
+        <br> Laboratórios: {{disciplina.laboratorios}} <br>
+    </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+</span>
