@@ -25,7 +25,7 @@ export class MatriculaComponent implements OnInit {
 
   mostraDisciplinas = false;
 
-  mostraFazerProposta = true;
+  mostraFazerProposta = false;
 
   constructor(private disciplinaService: DisciplinaService,
     private flash: FlashMessagesService,
