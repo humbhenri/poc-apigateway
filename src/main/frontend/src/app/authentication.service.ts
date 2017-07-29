@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import * as querystring from 'querystring';
-import { User } from "./user";
+import { User } from './user';
 
 @Injectable()
 export class AuthenticationService {
@@ -24,11 +24,11 @@ export class AuthenticationService {
       .set('Authorization', 'Basic ' + btoa(username + ':' + password))
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Access-Control-Allow-Credentials', 'true');
-    return this.http.post('http://localhost:8080/login', querystring.stringify({ username, password }), { headers })
+    return this.http.post('http://localhost:8080/api/login', querystring.stringify({ username, password }), { headers })
       .map((response: Response) => {
         localStorage.setItem('auth', btoa(username + ':' + password));
         this.loggedIn.next(!!localStorage.getItem('auth'));
-        return "OK";
+        return 'OK';
       });
   }
 

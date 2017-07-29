@@ -15,10 +15,10 @@ import { DisciplinaService } from './disciplina.service';
 import { DisciplinaPipe } from './disciplina.pipe';
 import { AlunoService } from './aluno.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-import { AuthGuard } from "./auth-guard";
-import { AuthenticationService } from "./authentication.service";
+import { AuthGuard } from './auth-guard';
+import { AuthenticationService } from './authentication.service';
 import { Interceptor } from './interceptor';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -65,7 +65,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
           }
         ]
       }
-    ], )
+    ], { useHash: true })
   ],
   providers: [
     DisciplinaService,
