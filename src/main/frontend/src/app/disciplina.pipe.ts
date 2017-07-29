@@ -7,7 +7,7 @@ import { Disciplina } from './disciplina';
 export class DisciplinaPipe implements PipeTransform {
 
   transform(value: Disciplina[], args?: any): string {
-    return value.map(d => d.id).join(", ");
+    return value.map(d => d.nome).join(', ');
   }
 
 }
