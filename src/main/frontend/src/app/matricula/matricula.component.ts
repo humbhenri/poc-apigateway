@@ -102,9 +102,8 @@ export class MatriculaComponent implements OnInit {
       console.log('An error occurred:', err.error.message);
       this.flash.show(err.error.message, {cssClass: 'alert-danger'});
     } else {
-      if (err.error && err.error.fieldErrors) {
-        const msg = err.error.fieldErrors.map(fieldError => fieldError.message).join('\n');
-        this.flash.show(msg, {cssClass: 'alert-danger'});
+      if (err.error && err.error.objectErrors) {
+        err.error.objectErrors.forEach(objectError => this.flash.show(objectError.message, {cssClass: 'alert-danger', timeout: 5000}));
       } else {
         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
         this.flash.show(`Um erro aconteceu: ${err.message}`, {cssClass: 'alert-danger'});
