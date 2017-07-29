@@ -1,19 +1,34 @@
-<div class="jumbotron" *ngIf="!mostraDisciplinas">
+<div class="jumbotron" *ngIf="mostraFazerProposta">
     <p class="lead">Você ainda não realizou nenhuma proposta de matrícula para este semestre.</p>
-    <p>
+    <p class="text-center">
         <a class="btn btn-lg btn-success" role="button" (click)="fazerProposta()">
         Fazer proposta
-    </a>
+    	</a>
     </p>
 </div>
 
-<span *ngIf="mostraDisciplinas">
+<div class="jumbotron" *ngIf="inscricao">
+	<p class="lead">Inscrição feita:</p>
+	<ul>
+		<li *ngFor="let disciplina of inscricao.disciplinas">
+			{{disciplina.nome}} - {{disciplina.id}}
+		</li>
+	</ul>
+	<div class="text-center">
+		<a class="btn btn-danger" role="button" (click)="cancelarMatricula()">
+        	Cancelar matrícula
+    	</a>
+	</div>
+</div>
 
-<button class="btn btn-lg btn-success" (click)="enviarProposta()">Enviar proposta</button>
+<div *ngIf="mostraDisciplinas">
 
-<br/>
-<br/>
-
+<div class="row">
+	<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
+		Enviar proposta
+	</a>
+</div>
+<div class="row">
 <div class="panel panel-default" 
     *ngFor="let disciplina of disciplinasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
     <div class="panel-heading">
@@ -26,5 +41,5 @@
     </div>
 </div>
 <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-</span>
+</div>
+</div>
