@@ -86,24 +86,29 @@ export class MatriculaComponent implements OnInit {
         this.carregarProposta();
         this.mostraDisciplinas = false;
       },
-      this.handleError);
+      (error) => this.handleError(error));
   }
 
   carregarProposta() {
     this.alunoService.carregarProposta().subscribe(inscricao => {
       this.mostraFazerProposta = inscricao == null;
       this.inscricao = inscricao;
-    }, this.handleError);
+    },
+      (error) => this.handleError(error));
   }
 
   handleError(err: HttpErrorResponse) {
     if (err.error instanceof Error) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.log('An error occurred:', err.error.message);
+      this.flash.show(err.error.message, {cssClass: 'alert-danger'});
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+      if (err.error && err.error.fieldErrors) {
+        const msg = err.error.fieldErrors.map(fieldError => fieldError.message).join('\n');
+        this.flash.show(msg, {cssClass: 'alert-danger'});
+      } else {
+        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        this.flash.show(`Um erro aconteceu: ${err.message}`, {cssClass: 'alert-danger'});
+      }
     }
   }
 
@@ -113,7 +118,8 @@ export class MatriculaComponent implements OnInit {
         this.flash.show('Cancelamento realizado com sucesso', {cssClass: 'alert-success'});
         this.inscricao = null;
         this.mostraFazerProposta = true;
-      }, this.handleError);
+      },
+      (error) => this.handleError(error));
   }
 
 }

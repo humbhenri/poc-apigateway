@@ -1,0 +1,5 @@
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let disciplina of disciplinasFeitas | async">
+  	{{disciplina.nome}} - {{disciplina.id}}
+  </li>
+</ul>

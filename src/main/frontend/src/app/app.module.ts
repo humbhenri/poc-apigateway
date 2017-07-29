@@ -19,6 +19,7 @@ import { AuthGuard } from './auth-guard';
 import { AuthenticationService } from './authentication.service';
 import { Interceptor } from './interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AlunoInfoComponent } from './aluno-info/aluno-info.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatriculaComponent,
     DisciplinaComponent,
     DisciplinaPipe,
+    AlunoInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
               {
                 path: 'matricula', component: MatriculaComponent
               },
+              {
+                path: 'aluno-info', component: AlunoInfoComponent
+              }
             ]
           }
         ]
