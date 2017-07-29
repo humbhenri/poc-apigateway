@@ -13,9 +13,12 @@ export class AlunoInfoComponent implements OnInit {
 
   disciplinasFeitas: Observable<Disciplina[]>;
 
+  aluno: Observable<string>;
+
   constructor(private alunoService: AlunoService) {}
 
   ngOnInit() {
+    this.aluno = this.alunoService.alunoInfo().map(aluno => aluno.nome);
     this.disciplinasFeitas = this.alunoService.alunoInfo().map(aluno => aluno.disciplinasFeitas);
   }
 
