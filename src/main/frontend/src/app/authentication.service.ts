@@ -15,6 +15,17 @@ export class AuthenticationService {
     this.loggedIn.next(!!localStorage.getItem('auth'));
   }
 
+  get username() {
+    return localStorage.getItem('username');
+  }
+
+  static getAuthorizationHeader() {
+    if (localStorage.getItem('auth')) {
+      return 'Basic ' + localStorage.getItem('auth');
+    }
+    return null;
+  }
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -27,6 +38,7 @@ export class AuthenticationService {
     return this.http.post('http://localhost:8080/api/login', querystring.stringify({ username, password }), { headers })
       .map((response: Response) => {
         localStorage.setItem('auth', btoa(username + ':' + password));
+        localStorage.setItem('username', username);
         this.loggedIn.next(!!localStorage.getItem('auth'));
         return 'OK';
       });
@@ -34,13 +46,9 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('auth');
+    localStorage.removeItem('username');
     this.loggedIn.next(!!localStorage.getItem('auth'));
 
   }
 
-  static getAuthorizationHeader() {
-    if (localStorage.getItem('auth'))
-      return 'Basic ' + localStorage.getItem('auth');
-    return null;
-  }
 }

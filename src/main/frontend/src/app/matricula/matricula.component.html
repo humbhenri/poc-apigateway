@@ -8,6 +8,12 @@
 </div>
 
 <span *ngIf="mostraDisciplinas">
+
+<button class="btn btn-lg btn-success" (click)="enviarProposta()">Enviar proposta</button>
+
+<br/>
+<br/>
+
 <div class="panel panel-default" 
     *ngFor="let disciplina of disciplinasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
     <div class="panel-heading">
