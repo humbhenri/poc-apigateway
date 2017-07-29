@@ -69,7 +69,7 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests().antMatchers("/matricula/**").hasRole("ALUNO")
 		.and()
-		.formLogin().successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
+		.formLogin().loginProcessingUrl("/api/login").successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
 		.and()
 		.logout();
 	}
