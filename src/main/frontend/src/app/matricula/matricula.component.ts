@@ -7,8 +7,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Inscricao} from '../inscricao';
 import {Observable} from 'rxjs/Observable';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import {Turma} from '../turma';
+import {TurmaService} from '../turma.service';
 
 @Component({
   selector: 'app-matricula',
@@ -17,17 +17,17 @@ import 'rxjs/add/observable/of';
 })
 export class MatriculaComponent implements OnInit {
 
-  disciplinasEscolhidas: Array<Disciplina> = [];
+  turmasEscolhidas: Array<Turma> = [];
 
-  disciplinasDisponiveis: Array<Disciplina> = [];
+  turmasDisponiveis: Array<Turma> = [];
 
   inscricao: Inscricao;
 
-  mostraDisciplinas = false;
+  mostraTurmas = false;
 
   mostraFazerProposta = false;
 
-  constructor(private disciplinaService: DisciplinaService,
+  constructor(private turmaService: TurmaService,
     private flash: FlashMessagesService,
     private alunoService: AlunoService,
     private http: HttpClient) {}
@@ -36,8 +36,8 @@ export class MatriculaComponent implements OnInit {
 
     this.carregarProposta();
 
-    this.disciplinaService.getDisciplinas().subscribe(
-      data => this.disciplinasDisponiveis = data,
+    this.turmaService.getTurmas().subscribe(
+      data => this.turmasDisponiveis = data,
       error => {
         console.log(error);
         this.flash.show(error.message, {cssClass: 'alert-danger'});
@@ -45,31 +45,31 @@ export class MatriculaComponent implements OnInit {
     );
   }
 
-  onSelect(disciplina: Disciplina): void {
-    const index = this.disciplinasEscolhidas.map(d => d.id).indexOf(disciplina.id);
+  onSelect(turma: Turma): void {
+    const index = this.turmasEscolhidas.map(d => d.id).indexOf(turma.id);
     if (index > -1) {
-      this.disciplinasEscolhidas.splice(index, 1);
+      this.turmasEscolhidas.splice(index, 1);
     } else {
-      this.disciplinasEscolhidas.push(disciplina);
+      this.turmasEscolhidas.push(turma);
     }
   }
 
-  getCSSClasses(disciplina: Disciplina) {
-    if (this.disciplinasEscolhidas.filter(d => d.id === disciplina.id).length > 0) {
+  getCSSClasses(turma: Turma) {
+    if (this.turmasEscolhidas.filter(d => d.id === turma.id).length > 0) {
       return 'btn btn-danger btn-sm pull-right';
     }
     return 'btn btn-primary btn-sm pull-right';
   }
 
-  getLabel(disciplina: Disciplina) {
-    if (this.disciplinasEscolhidas.filter(d => d.id === disciplina.id).length > 0) {
+  getLabel(turma: Turma) {
+    if (this.turmasEscolhidas.filter(d => d.id === turma.id).length > 0) {
       return 'Remover';
     }
     return 'Matricular';
   }
 
   fazerProposta() {
-    this.mostraDisciplinas = true;
+    this.mostraTurmas = true;
     this.mostraFazerProposta = false;
   }
 
@@ -77,14 +77,14 @@ export class MatriculaComponent implements OnInit {
     this.alunoService.alunoInfo()
       .flatMap(aluno => {
         console.log('Enviando proposta de matrícula para o aluno ' + aluno.nome);
-        const inscricao = new Inscricao(null, aluno, this.disciplinasEscolhidas);
+        const inscricao = new Inscricao(null, aluno, this.turmasEscolhidas);
         return this.http.post('http://localhost:8080/matricula/inscricao', inscricao);
       })
       .subscribe((data) => {
-        this.disciplinasEscolhidas = [];
+        this.turmasEscolhidas = [];
         this.flash.show('Inscrição criada com sucesso', {cssClass: 'alert-success'});
         this.carregarProposta();
-        this.mostraDisciplinas = false;
+        this.mostraTurmas = false;
       },
       (error) => this.handleError(error));
   }

@@ -20,6 +20,7 @@ import { AuthenticationService } from './authentication.service';
 import { Interceptor } from './interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AlunoInfoComponent } from './aluno-info/aluno-info.component';
+import { TurmaService } from './turma.service';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { AlunoInfoComponent } from './aluno-info/aluno-info.component';
     AlunoService,
     AuthGuard,
     AuthenticationService,
+    TurmaService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

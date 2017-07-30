@@ -1,11 +1,13 @@
-import { Disciplina } from './disciplina';
-import { Turno } from "./turno.enum";
-import { AtividadeAcademica } from './atividade-academica';
+import {Disciplina} from './disciplina';
+import {Professor} from './professor';
+import {Horario} from './horario';
 
 export class Turma {
-    constructor(
-        public disciplina: Disciplina,
-        public turno: Turno,
-        public atividadesAcademicas: AtividadeAcademica[],
-    ) { }
+  constructor(
+    public id: number,
+    public disciplina: Disciplina,
+    public capacidade: number,
+    public semestre: number,
+    public professor: Professor
+  ) {}
 }

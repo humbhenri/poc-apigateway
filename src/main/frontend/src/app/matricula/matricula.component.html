@@ -10,8 +10,8 @@
 <div class="jumbotron" *ngIf="inscricao">
 	<p class="lead">Inscrição feita:</p>
 	<ul>
-		<li *ngFor="let disciplina of inscricao.disciplinas">
-			{{disciplina.nome}} - {{disciplina.id}}
+		<li *ngFor="let turma of inscricao.turmas">
+			{{turma.disciplina.nome}} - {{turma.disciplina.id}}
 		</li>
 	</ul>
 	<div class="text-center">
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<div *ngIf="mostraDisciplinas">
+<div *ngIf="mostraTurmas">
 
 <div class="row">
 	<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
@@ -30,14 +30,16 @@
 </div>
 <div class="row">
 <div class="panel panel-default" 
-    *ngFor="let disciplina of disciplinasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
+    *ngFor="let turma of turmasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
     <div class="panel-heading">
-        {{disciplina.nome}} - {{disciplina.id}}
-        <button [ngClass]="getCSSClasses(disciplina)" (click)="onSelect(disciplina)">{{getLabel(disciplina)}}</button>
+        {{turma.disciplina.nome}} - {{turma.disciplina.id}}
+        <button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
     </div>
     <div class="panel-body">
-        Aulas: {{disciplina.aulas}} <br> Requisitos: {{disciplina.requisitos | disciplina}} <br> Créditos: {{disciplina.creditos}}
-        <br> Laboratórios: {{disciplina.laboratorios}} <br>
+        Aulas: {{turma.disciplina.aulas}} <br> 
+        Requisitos: {{turma.disciplina.requisitos | disciplina}} 
+        <br> Créditos: {{turma.disciplina.creditos}}
+        <br> Laboratórios: {{turma.disciplina.laboratorios}} <br>
     </div>
 </div>
 <pagination-controls (pageChange)="p = $event"></pagination-controls>

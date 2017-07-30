@@ -1,10 +1,10 @@
-import { Aluno } from './aluno';
-import { Disciplina } from './disciplina';
+import {Aluno} from './aluno';
+import {Turma} from './turma';
 
 export class Inscricao {
-    constructor(
-        public id: number,
-        public aluno: Aluno,
-        public disciplinas: Array<Disciplina>,
-    ) {}
+  constructor(
+    public id: number,
+    public aluno: Aluno,
+    public turmas: Array<Turma>,
+  ) {}
 }
