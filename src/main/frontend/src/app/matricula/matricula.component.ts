@@ -83,7 +83,9 @@ export class MatriculaComponent implements OnInit {
       })
       .subscribe((data) => {
         this.turmasEscolhidas = [];
+        window.scrollTo(0, 0);
         this.flash.show('Inscrição criada com sucesso', {cssClass: 'alert-success'});
+        window.scrollTo(0, 0);
         this.carregarProposta();
         this.mostraTurmas = false;
       },
@@ -104,6 +106,7 @@ export class MatriculaComponent implements OnInit {
       this.flash.show(err.error.message, {cssClass: 'alert-danger'});
     } else {
       if (err.error && err.error.objectErrors) {
+        window.scrollTo(0, 0);
         err.error.objectErrors.forEach(objectError => this.flash.show(objectError.message, {cssClass: 'alert-danger', timeout: 5000}));
       } else {
         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
@@ -124,11 +127,10 @@ export class MatriculaComponent implements OnInit {
 
   getHorarios(turma: Turma): Horario[] {
     return turma.horarios.sort((a, b) => {
-      const dias = {'Segunda-feira': 1, 'Terça-feira': 2, 'Quarta-feira': 3, 'Quinta-feira': 4, 'Sexta-feira': 5};
-      if (dias[a.dia] - dias[b.dia] === 0) {
+      if (a.dia.id - b.dia.id === 0) {
         return a.hora - b.hora;
       }
-      return dias[a.dia] - dias[b.dia];
+      return a.dia.id - b.dia.id;
     });
   }
 

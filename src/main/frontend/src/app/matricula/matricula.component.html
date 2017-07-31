@@ -22,35 +22,32 @@
 </div>
 
 <div *ngIf="mostraTurmas">
-
-<div class="row">
-	<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
-		Enviar proposta
-	</a>
-</div>
-<div class="row">
-<div class="panel panel-default" 
-    *ngFor="let turma of turmasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
-    <div class="panel-heading">
-        {{turma.disciplina.nome}} - {{turma.disciplina.id}}
-        <button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
-    </div>
-    <div class="panel-body">
-        Aulas: {{turma.disciplina.aulas}} <br> 
-        Requisitos: {{turma.disciplina.requisitos | disciplina}} 
-        <br> Créditos: {{turma.disciplina.creditos}}
-        <br> Laboratórios: {{turma.disciplina.laboratorios}} 
-        <br> Professor: {{turma.professor}}
-        <br> Horários: 
-        <table class="table table-bordered">
-        	<tbody>
-	        	<tr *ngFor="let horario of getHorarios(turma)">
-	        		<td>{{horario.dia}}</td><td>{{horario.hora}}:00</td>
-	        	</tr>
-        	</tbody>
-        </table>
-    </div>
-</div>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
+	<div class="panel panel-default" 
+	    *ngFor="let turma of turmasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
+	    <div class="panel-heading">
+	        {{turma.disciplina.nome}} - {{turma.disciplina.id}}
+	        <button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
+	    </div>
+	    <div class="panel-body">
+	        Aulas: {{turma.disciplina.aulas}} 
+	        <br>Requisitos: {{turma.disciplina.requisitos | disciplina}} 
+	        <br> Créditos: {{turma.disciplina.creditos}}
+	        <br> Laboratórios: {{turma.disciplina.laboratorios}} 
+	        <br> Professor: {{turma.professor.nome}}
+	        <br> Horários: 
+	        <table class="table table-bordered">
+	        	<tbody>
+		        	<tr *ngFor="let horario of getHorarios(turma)">
+		        		<td>{{horario.dia.nome}}</td><td>{{horario.hora}}:00</td>
+		        	</tr>
+	        	</tbody>
+	        </table>
+	    </div>
+	</div>
+	<div class="row">
+		<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
+			Enviar proposta
+		</a>
+	</div>
+	<pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
