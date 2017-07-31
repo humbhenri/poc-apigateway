@@ -3,6 +3,7 @@ import {AlunoService} from '../aluno.service';
 import {Aluno} from '../aluno';
 import {DisciplinaService} from '../disciplina.service';
 import {Disciplina} from '../disciplina';
+import {Horario} from '../horario';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Inscricao} from '../inscricao';
 import {Observable} from 'rxjs/Observable';
@@ -119,6 +120,16 @@ export class MatriculaComponent implements OnInit {
         this.mostraFazerProposta = true;
       },
       (error) => this.handleError(error));
+  }
+
+  getHorarios(turma: Turma): Horario[] {
+    return turma.horarios.sort((a, b) => {
+      const dias = {'Segunda-feira': 1, 'Terça-feira': 2, 'Quarta-feira': 3, 'Quinta-feira': 4, 'Sexta-feira': 5};
+      if (dias[a.dia] - dias[b.dia] === 0) {
+        return a.hora - b.hora;
+      }
+      return dias[a.dia] - dias[b.dia];
+    });
   }
 
 }

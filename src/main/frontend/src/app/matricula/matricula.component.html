@@ -39,7 +39,16 @@
         Aulas: {{turma.disciplina.aulas}} <br> 
         Requisitos: {{turma.disciplina.requisitos | disciplina}} 
         <br> Créditos: {{turma.disciplina.creditos}}
-        <br> Laboratórios: {{turma.disciplina.laboratorios}} <br>
+        <br> Laboratórios: {{turma.disciplina.laboratorios}} 
+        <br> Professor: {{turma.professor}}
+        <br> Horários: 
+        <table class="table table-bordered">
+        	<tbody>
+	        	<tr *ngFor="let horario of getHorarios(turma)">
+	        		<td>{{horario.dia}}</td><td>{{horario.hora}}:00</td>
+	        	</tr>
+        	</tbody>
+        </table>
     </div>
 </div>
 <pagination-controls (pageChange)="p = $event"></pagination-controls>

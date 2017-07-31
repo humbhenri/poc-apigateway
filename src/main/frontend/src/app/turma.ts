@@ -8,6 +8,7 @@ export class Turma {
     public disciplina: Disciplina,
     public capacidade: number,
     public semestre: number,
-    public professor: Professor
+    public professor: string,
+    public horarios: Horario[],
   ) {}
 }
