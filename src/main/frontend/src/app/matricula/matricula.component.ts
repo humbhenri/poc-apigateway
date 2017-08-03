@@ -10,6 +10,8 @@ import {Observable} from 'rxjs/Observable';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Turma} from '../turma';
 import {TurmaService} from '../turma.service';
+import { Config } from "../config";
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-matricula',
@@ -79,7 +81,7 @@ export class MatriculaComponent implements OnInit {
       .flatMap(aluno => {
         console.log('Enviando proposta de matrícula para o aluno ' + aluno.nome);
         const inscricao = new Inscricao(null, aluno, this.turmasEscolhidas);
-        return this.http.post('http://localhost:8080/matricula/inscricao', inscricao);
+        return this.http.post(Config.API_BASE + 'matricula/inscricao', inscricao);
       })
       .subscribe((data) => {
         this.turmasEscolhidas = [];

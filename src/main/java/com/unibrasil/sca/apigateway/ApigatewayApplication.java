@@ -69,6 +69,8 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests().antMatchers("/matricula/**").hasRole("ALUNO")
 		.and()
+		.authorizeRequests().antMatchers("/integracao/**").hasRole("COORDENADOR")
+		.and()
 		.formLogin().successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
 		.and()
 		.logout();

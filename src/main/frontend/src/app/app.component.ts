@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from './authentication.service';
-import { User } from './user';
-import { Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from './authentication.service';
+import {User} from './user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,8 @@ import { Router} from '@angular/router';
 export class AppComponent implements OnInit {
 
   loggedIn = false;
-  
-  constructor(private auth: AuthenticationService, private router : Router) {
+
+  constructor(private auth: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {

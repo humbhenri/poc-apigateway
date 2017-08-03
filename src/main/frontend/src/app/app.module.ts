@@ -1,26 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, ErrorHandler} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { AlunoComponent } from './aluno.component';
-import { LoginComponent } from './login.component';
-import { LogoutComponent } from './logout.component';
-import { HomeComponent } from './home/home.component';
-import { MatriculaComponent } from './matricula/matricula.component';
-import { DisciplinaComponent } from './disciplina/disciplina.component';
-import { DisciplinaService } from './disciplina.service';
-import { DisciplinaPipe } from './disciplina.pipe';
-import { AlunoService } from './aluno.service';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { AuthGuard } from './auth-guard';
-import { AuthenticationService } from './authentication.service';
-import { Interceptor } from './interceptor';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { AlunoInfoComponent } from './aluno-info/aluno-info.component';
-import { TurmaService } from './turma.service';
+import {AlunoComponent} from './aluno.component';
+import {LoginComponent} from './login.component';
+import {LogoutComponent} from './logout.component';
+import {HomeComponent} from './home/home.component';
+import {MatriculaComponent} from './matricula/matricula.component';
+import {DisciplinaComponent} from './disciplina/disciplina.component';
+import {DisciplinaService} from './disciplina.service';
+import {DisciplinaPipe} from './disciplina.pipe';
+import {AlunoService} from './aluno.service';
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import {AuthGuard} from './auth-guard';
+import {AuthenticationService} from './authentication.service';
+import {Interceptor} from './interceptor';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {AlunoInfoComponent} from './aluno-info/aluno-info.component';
+import {TurmaService} from './turma.service';
+import {CadastroProfessorComponent} from './cadastro-professor/cadastro-professor.component';
+import {CoordenadorComponent} from './coordenador/coordenador.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { TurmaService } from './turma.service';
     DisciplinaComponent,
     DisciplinaPipe,
     AlunoInfoComponent,
+    CadastroProfessorComponent,
+    CoordenadorComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,16 +66,33 @@ import { TurmaService } from './turma.service';
             path: '',
             children: [
               {
-                path: 'matricula', component: MatriculaComponent
+                path: 'matricula',
+                component: MatriculaComponent
               },
               {
-                path: 'aluno-info', component: AlunoInfoComponent
+                path: 'aluno-info',
+                component: AlunoInfoComponent
               }
             ]
           }
         ]
-      }
-    ], { useHash: true })
+      },
+      {
+        path: 'coordenador',
+        component: CoordenadorComponent,
+        children: [
+          {
+            path: '',
+            children: [
+              {
+                path: 'cadastro-professor',
+                component: CadastroProfessorComponent,
+              }
+            ]
+          },
+        ]
+      },
+    ], {useHash: true})
   ],
   providers: [
     DisciplinaService,
@@ -87,4 +108,4 @@ import { TurmaService } from './turma.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
