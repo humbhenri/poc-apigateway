@@ -3,7 +3,18 @@ export class Professor {
   public constructor(
     public id: number,
     public nome: string,
-    public username: string
-  ) {}
+    public username: Username,
+    public endereco: string,
+    public telefone: string,
+    public nascimento: string,
+  ) { }
 
+}
+
+export class Username {
+  public constructor(
+    public username: string,
+    public enabled: number,
+    public password: string,
+  ) {}
 }

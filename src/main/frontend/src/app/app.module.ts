@@ -23,6 +23,7 @@ import {AlunoInfoComponent} from './aluno-info/aluno-info.component';
 import {TurmaService} from './turma.service';
 import {CadastroProfessorComponent} from './cadastro-professor/cadastro-professor.component';
 import {CoordenadorComponent} from './coordenador/coordenador.component';
+import {ProfessorCadastroService} from './professor-cadastro.service';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {CoordenadorComponent} from './coordenador/coordenador.component';
       {
         path: 'coordenador',
         component: CoordenadorComponent,
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -100,6 +102,7 @@ import {CoordenadorComponent} from './coordenador/coordenador.component';
     AuthGuard,
     AuthenticationService,
     TurmaService,
+    ProfessorCadastroService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
