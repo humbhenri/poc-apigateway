@@ -95,6 +95,10 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
               {
                 path: 'professor',
                 component: ProfessorFormComponent
+              },
+              {
+                path: 'professor/:id',
+                component: ProfessorFormComponent
               }
             ]
           },

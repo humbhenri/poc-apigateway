@@ -3,6 +3,7 @@ import { ProfessorCadastroService } from '../professor-cadastro.service';
 import { Observable } from "rxjs/Observable";
 import { Professor } from "../professor";
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-professor',
@@ -14,7 +15,8 @@ export class CadastroProfessorComponent implements OnInit {
   professores: Professor[];
 
   constructor(private service: ProfessorCadastroService, 
-    private flash: FlashMessagesService) { }
+    private flash: FlashMessagesService,
+    private router: Router) { }
 
   ngOnInit() {
     this.service.getProfessores().subscribe(data => this.professores = data);
@@ -37,5 +39,4 @@ export class CadastroProfessorComponent implements OnInit {
       );
     }
   }
-
 }

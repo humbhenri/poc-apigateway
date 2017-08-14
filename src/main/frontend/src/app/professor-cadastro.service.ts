@@ -21,4 +21,12 @@ export class ProfessorCadastroService {
     return this.http.delete(Config.API_BASE + 'integracao/professores/' + p.id);
   }
 
+  getProfessor(id: number): Observable<Professor> {
+    return this.http.get<Professor>(Config.API_BASE + 'integracao/professores/' + id);
+  }
+
+  atualizarProfessor(p: Professor) {
+    return this.http.put(Config.API_BASE + 'integracao/professores/' + p.id, p);
+  }
+
 }
