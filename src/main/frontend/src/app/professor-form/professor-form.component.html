@@ -1,5 +1,4 @@
 <form (ngSubmit)="onSubmit()" #professorForm="ngForm">
-  {{diagnostic}}
   <div class="form-group">
     <label for="nome">Nome</label>
     <input type="text" class="form-control" id="nome" placeholder="Nome" required [(ngModel)]="model.nome" name="nome" #nome="ngModel">
