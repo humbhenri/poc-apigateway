@@ -22,7 +22,7 @@
       <td>{{professor.username.username}}</td>
       <td>{{professor.endereco}}</td>
       <td>{{professor.telefone}}</td>
-      <td>{{professor.nascimento}}</td>
+      <td>{{professor.nascimento | date: 'dd/MM/yyyy'}}</td>
       <td><button class="btn btn-sm" routerLink="../professor/{{professor.id}}">Editar</button></td>
       <td><button class="btn btn-sm btn-danger" (click)="delete(professor)">Remover</button></td>
     </tr>

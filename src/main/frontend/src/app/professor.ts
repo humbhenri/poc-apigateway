@@ -6,7 +6,7 @@ export class Professor {
     public username: Username,
     public endereco: string,
     public telefone: string,
-    public nascimento: string,
+    public nascimento: Date,
   ) { }
 
 }

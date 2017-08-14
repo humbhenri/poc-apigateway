@@ -60,4 +60,8 @@ export class ProfessorFormComponent implements OnInit {
     });
   }
 
+  get diagnostic() {
+    return JSON.stringify(this.model);
+  }
+
 }
