@@ -17,4 +17,8 @@ export class ProfessorCadastroService {
     return this.http.post(Config.API_BASE + 'integracao/professores', p);
   }
 
+  deletarProfessor(p: Professor) {
+    return this.http.delete(Config.API_BASE + 'integracao/professores/' + p.id);
+  }
+
 }

@@ -87,7 +87,6 @@ export class MatriculaComponent implements OnInit {
         this.turmasEscolhidas = [];
         window.scrollTo(0, 0);
         this.flash.show('Inscrição criada com sucesso', {cssClass: 'alert-success'});
-        window.scrollTo(0, 0);
         this.carregarProposta();
         this.mostraTurmas = false;
       },

@@ -17,14 +17,14 @@
     <th></th>
   </thead>
   <tbody>
-    <tr *ngFor="let professor of professores | async">
+    <tr *ngFor="let professor of professores">
       <td>{{professor.nome}}</td>
       <td>{{professor.username.username}}</td>
       <td>{{professor.endereco}}</td>
       <td>{{professor.telefone}}</td>
       <td>{{professor.nascimento}}</td>
       <td><button class="btn btn-sm">Editar</button></td>
-      <td><button class="btn btn-sm btn-danger">Remover</button></td>
+      <td><button class="btn btn-sm btn-danger" (click)="delete(professor)">Remover</button></td>
     </tr>
   </tbody>
 </table>
