@@ -35,6 +35,6 @@
       Senha é obrigatória
     </div>
   </div>
-  <a type="button" class="btn btn-default">Cancelar</a>
+  <a type="button" class="btn btn-default" (click)="cancelar()">Cancelar</a>
   <button type="submit" class="btn btn-success" [disabled]="!professorForm.form.valid">Salvar</button>
 </form>

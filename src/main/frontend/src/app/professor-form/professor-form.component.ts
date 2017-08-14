@@ -60,6 +60,10 @@ export class ProfessorFormComponent implements OnInit {
     });
   }
 
+  cancelar() {
+    this.router.navigate(['coordenador/cadastro-professor']);
+  }
+
   get diagnostic() {
     return JSON.stringify(this.model);
   }
