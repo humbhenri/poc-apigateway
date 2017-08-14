@@ -13,4 +13,8 @@ export class ProfessorCadastroService {
     return this.http.get<Professor[]>(Config.API_BASE + 'integracao/professores');
   }
 
+  salvarProfessor(p: Professor) {
+    return this.http.post(Config.API_BASE + 'integracao/professores', p);
+  }
+
 }

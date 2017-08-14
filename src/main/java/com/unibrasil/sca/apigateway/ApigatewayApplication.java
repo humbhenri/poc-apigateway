@@ -27,80 +27,79 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableEurekaClient
 public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-	@Autowired
-	private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
 
-	@Autowired
-	private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApigatewayApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ApigatewayApplication.class, args);
+    }
 
-	@LoadBalanced // Make sure to create the load-balanced template
-	@Bean
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
+    @LoadBalanced // Make sure to create the load-balanced template
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowCredentials(true).allowedHeaders("*").allowedMethods("*")
-						.allowedOrigins("*");
-			}
-		};
-	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowCredentials(true).allowedHeaders("*").allowedMethods("*")
+                        .allowedOrigins("*");
+            }
+        };
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic()
-		.and()
-		.cors()
-		.and()
-		.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
-		.and()
-		.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-		.and()
-		.authorizeRequests().antMatchers("/matricula/**").hasRole("ALUNO")
-		.and()
-		.authorizeRequests().antMatchers("/integracao/**").hasRole("COORDENADOR")
-		.and()
-		.formLogin().successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
-		.and()
-		.logout();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.httpBasic()
+                .and()
+                .cors()
+                .and()
+                .csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/matricula/**").hasRole("ALUNO")
+                .and()
+                .authorizeRequests().antMatchers("/integracao/**").hasRole("COORDENADOR")
+                .and()
+                .formLogin().successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .and()
+                .logout();
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication()
-				.dataSource(dataSource)
-				.usersByUsernameQuery(
-						"select username,password, enabled from users where username=?")
-				.authoritiesByUsernameQuery(
-						"select username, role from user_roles where username=?");
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(
+                        "select username,password, enabled from users where username=?")
+                .authoritiesByUsernameQuery(
+                        "select username, role from user_roles where username=?");
 
-	}
+    }
 
-	@Bean
-	public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler() {
-		return new MySavedRequestAwareAuthenticationSuccessHandler();
-	}
-	
-	@Bean(name = "dataSource")
-	public DriverManagerDataSource dataSource() {
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/poc");
-		driverManagerDataSource.setUsername("root");
-		driverManagerDataSource.setPassword("root");
-		return driverManagerDataSource;
+    @Bean
+    public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler() {
+        return new MySavedRequestAwareAuthenticationSuccessHandler();
+    }
 
-	}
+//    @Bean(name = "dataSource")
+//    public DriverManagerDataSource dataSource() {
+//        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+//        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/poc");
+//        driverManagerDataSource.setUsername("root");
+//        driverManagerDataSource.setPassword("root");
+//        return driverManagerDataSource;
+//    }
 
 }

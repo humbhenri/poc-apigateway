@@ -16,5 +16,5 @@ export class Username {
     public username: string,
     public enabled: number,
     public password: string,
-  ) {}
+  ) { }
 }

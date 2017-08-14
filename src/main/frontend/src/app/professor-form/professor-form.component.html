@@ -1,0 +1,40 @@
+<form (ngSubmit)="onSubmit()" #professorForm="ngForm">
+  {{diagnostic}}
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" class="form-control" id="nome" placeholder="Nome" required [(ngModel)]="model.nome" name="nome" #nome="ngModel">
+    <div [hidden]="nome.valid || nome.pristine" class="alert alert-danger">
+      Nome é obrigatório
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="endereco">Endereço</label>
+    <input type="text" class="form-control" id="endereco" placeholder="Endereço" [(ngModel)]="model.endereco" name="endereco">
+  </div>
+  <div class="form-group">
+    <label for="telefone">Telefone</label>
+    <input type="text" class="form-control" id="telefone" placeholder="Telefone" [(ngModel)]="model.telefone" name="telefone">
+  </div>
+  <div class="form-group">
+    <label for="nascimento">Data de nascimento</label>
+    <input type="date" class="form-control" id="nascimento" placeholder="Data de nascimento" [(ngModel)]="model.nascimento" name="nascimento">
+  </div>
+  <div class="form-group">
+    <label for="username">Nome de usuário</label>
+    <input type="text" class="form-control" id="username" placeholder="Nome de usuário" required [(ngModel)]="model.username.username"
+      name="username" #username="ngModel">
+    <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+      Nome de usuário é obrigatório
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Senha</label>
+    <input type="text" class="form-control" id="password" placeholder="Senha" required [(ngModel)]="model.username.password"
+      name="password" #password="ngModel">
+    <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+      Senha é obrigatória
+    </div>
+  </div>
+  <a type="button" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success" [disabled]="!professorForm.form.valid">Salvar</button>
+</form>
