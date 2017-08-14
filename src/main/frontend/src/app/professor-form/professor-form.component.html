@@ -17,7 +17,7 @@
   <div class="form-group">
     <label for="nascimento">Data de nascimento</label>
     <input type="date" class="form-control" id="nascimento" placeholder="Data de nascimento" [ngModel]="model.nascimento | date:'yyyy-MM-dd'" 
-      (ngModelChange)="model.nascimento = $event" [value]="model.nascimento | date:'yyyy-MM-dd'"  name="nascimento">
+      (ngModelChange)="model.nascimento = $event" name="nascimento">
   </div>
   <div class="form-group">
     <label for="username">Nome de usuário</label>

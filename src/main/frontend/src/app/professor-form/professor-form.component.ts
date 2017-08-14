@@ -33,6 +33,11 @@ export class ProfessorFormComponent implements OnInit {
   }
 
   onSubmit() {
+    // fix dia vindo errado como dia anterior.
+    if (typeof this.model.nascimento === 'string') {
+      this.model.nascimento = new Date(this.model.nascimento);
+      this.model.nascimento = new Date(this.model.nascimento.getTime() + Math.abs(this.model.nascimento.getTimezoneOffset()*60000));
+    }
     if (this.model.id) {
       this.atualizarProfessor();
     } else {
