@@ -1,0 +1,22 @@
+<h3>{{professor?.nome}}</h3>
+<hr>
+<dl>
+  <dt>Data de nascimento</dt>
+  <dd>
+    {{professor?.nascimento | date: 'dd/MM/yyyy'}}
+  </dd>
+</dl>
+
+<dl>
+  <dt>Endereço</dt>
+  <dd>
+    {{professor?.endereco}}
+  </dd>
+</dl>
+
+<dl>
+  <dt>Telefone</dt>
+  <dd>
+    {{professor?.telefone}}
+  </dd>
+</dl>

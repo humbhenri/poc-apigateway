@@ -25,6 +25,8 @@ import { CadastroProfessorComponent } from './cadastro-professor/cadastro-profes
 import { CoordenadorComponent } from './coordenador/coordenador.component';
 import { ProfessorCadastroService } from './professor-cadastro.service';
 import { ProfessorFormComponent } from './professor-form/professor-form.component';
+import { ProfessorInfoComponent } from './professor-info/professor-info.component';
+import { ProfessorInfoService } from './professor-info.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
     CadastroProfessorComponent,
     CoordenadorComponent,
     ProfessorFormComponent,
+    ProfessorInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,10 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
               {
                 path: 'aluno-info',
                 component: AlunoInfoComponent
+              },
+              {
+                path: 'professor-info/:id',
+                component: ProfessorInfoComponent
               }
             ]
           }
@@ -113,6 +120,7 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
     AuthenticationService,
     TurmaService,
     ProfessorCadastroService,
+    ProfessorInfoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

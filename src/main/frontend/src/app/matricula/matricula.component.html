@@ -33,7 +33,7 @@
 	        <br>Requisitos: {{turma.disciplina.requisitos | disciplina}} 
 	        <br> Créditos: {{turma.disciplina.creditos}}
 	        <br> Laboratórios: {{turma.disciplina.laboratorios}} 
-	        <br> Professor: {{turma.professor.nome}}
+	        <br> Professor: <a routerLink="../professor-info/{{turma.professor.id}}" >{{turma.professor.nome}}</a>
 	        <br> Horários: 
 	        <table class="table table-bordered">
 	        	<tbody>

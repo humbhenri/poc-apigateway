@@ -10,7 +10,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -91,15 +90,5 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
     public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler() {
         return new MySavedRequestAwareAuthenticationSuccessHandler();
     }
-
-//    @Bean(name = "dataSource")
-//    public DriverManagerDataSource dataSource() {
-//        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-//        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/poc");
-//        driverManagerDataSource.setUsername("root");
-//        driverManagerDataSource.setPassword("root");
-//        return driverManagerDataSource;
-//    }
 
 }
