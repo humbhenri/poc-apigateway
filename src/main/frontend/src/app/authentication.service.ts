@@ -33,9 +33,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     const headers = new HttpHeaders()
-      .set('Authorization', 'Basic ' + btoa(username + ':' + password))
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-      .set('Access-Control-Allow-Credentials', 'true');
+      .set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(Config.API_BASE + 'login', querystring.stringify({ username, password }), { headers })
       .map((response: Response) => {
         localStorage.setItem('auth', btoa(username + ':' + password));

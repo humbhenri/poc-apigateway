@@ -1,5 +1,6 @@
 package com.unibrasil.sca.apigateway;
 
+import java.util.Arrays;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -48,13 +51,13 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic()
+        http.
+                cors()
                 .and()
-                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .csrf().disable()
+                .httpBasic()
                 .and()
-                .csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
-                .and()
-                .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests().antMatchers("/matricula/**").hasRole("ALUNO")
                 .and()
@@ -63,6 +66,16 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
                 .formLogin().successHandler(authenticationSuccessHandler).failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("/**"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "HEAD", "OPTIONS"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Override
