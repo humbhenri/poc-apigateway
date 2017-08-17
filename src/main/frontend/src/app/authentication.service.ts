@@ -5,15 +5,14 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import * as querystring from 'querystring';
 import { User } from './user';
-import { Config } from './config'; 
+import { Config } from './config';
 
 @Injectable()
 export class AuthenticationService {
 
-  private loggedIn: Subject<boolean> = new Subject<boolean>();
+  loggedIn = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient) {
-    this.loggedIn.next(!!localStorage.getItem('auth'));
   }
 
   get username() {
@@ -27,10 +26,6 @@ export class AuthenticationService {
     return null;
   }
 
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
-
   login(username: string, password: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded');
@@ -38,7 +33,7 @@ export class AuthenticationService {
       .map((response: Response) => {
         localStorage.setItem('auth', btoa(username + ':' + password));
         localStorage.setItem('username', username);
-        this.loggedIn.next(!!localStorage.getItem('auth'));
+        this.loggedIn.emit(true);
         return 'OK';
       });
   }
@@ -46,8 +41,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('auth');
     localStorage.removeItem('username');
-    this.loggedIn.next(!!localStorage.getItem('auth'));
-
+    this.loggedIn.emit(false);
   }
 
 }

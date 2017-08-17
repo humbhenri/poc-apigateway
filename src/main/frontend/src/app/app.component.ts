@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.isLoggedIn.subscribe(val => this.loggedIn = val);
+    this.auth.loggedIn.subscribe(logged => this.loggedIn = logged);
   }
 
   onClick(event: Event): void {
