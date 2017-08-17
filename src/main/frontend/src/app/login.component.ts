@@ -37,7 +37,11 @@ export class LoginComponent implements OnInit {
       error => {
         this.loading = false;
         console.log(error);
-        this.flash.show(error.message, {cssClass : 'alert-danger'});
+        if (error.status === 401) {
+          this.flash.show('Usuário ou senha incorretos!', {cssClass : 'alert-danger', timout: 5000});
+        } else {
+          this.flash.show('Ocorreu um erro, tente novamente mais tarde.', {cssClass : 'alert-danger', timout: 5000});
+        }
       });
   }
 }
