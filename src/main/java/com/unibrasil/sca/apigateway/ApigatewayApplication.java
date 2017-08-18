@@ -1,7 +1,5 @@
 package com.unibrasil.sca.apigateway;
 
-import java.util.Arrays;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
