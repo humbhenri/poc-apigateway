@@ -102,8 +102,18 @@ export class MatriculaComponent implements OnInit {
   }
 
   handleError(err: HttpErrorResponse) {
-    console.log(err);
-    this.flash.show('Ocorreu um erro, tente novamente mais tarde', {cssClass: 'alert-danger', timeout: 5000});
+    if (err.error instanceof Error) {
+      console.log('An error occurred:', err.error.message);
+      this.flash.show('Ocorreu um erro, tente novamente mais tarde.', {cssClass: 'alert-danger'});
+    } else {
+      if (err.error && err.error.objectErrors) {
+        window.scrollTo(0, 0);
+        err.error.objectErrors.forEach(objectError => this.flash.show(objectError.message, {cssClass: 'alert-danger', timeout: 5000}));
+      } else {
+        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        this.flash.show(`Um erro aconteceu: ${err.message}`, {cssClass: 'alert-danger'});
+      }
+    }
   }
 
   cancelarMatricula() {
