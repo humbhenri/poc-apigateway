@@ -25,8 +25,14 @@
 	<div class="panel panel-default" 
 	    *ngFor="let turma of turmasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
 	    <div class="panel-heading">
-	        {{turma.disciplina.nome}} - {{turma.disciplina.id}}
-	        <button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
+			<div class="row">
+				<div class="col-sm-10">
+					{{turma.disciplina.nome}} - {{turma.disciplina.id}}
+				</div>
+				<div class="col-sm-2">				
+					<button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
+				</div>
+			</div>
 	    </div>
 	    <div class="panel-body">
 	        Aulas: {{turma.disciplina.aulas}} 
