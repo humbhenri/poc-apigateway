@@ -19,13 +19,6 @@ export class AuthenticationService {
     return localStorage.getItem('username');
   }
 
-  static getAuthorizationHeader() {
-    if (localStorage.getItem('auth')) {
-      return 'Basic ' + localStorage.getItem('auth');
-    }
-    return null;
-  }
-
   login(username: string, password: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded');
@@ -44,4 +37,10 @@ export class AuthenticationService {
     this.loggedIn.emit(false);
   }
 
+  static getAuthorizationHeader() {
+    if (localStorage.getItem('auth')) {
+      return 'Basic ' + localStorage.getItem('auth');
+    }
+    return null;
+  }
 }
