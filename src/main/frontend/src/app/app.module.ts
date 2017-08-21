@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AlunoComponent } from './aluno.component';
 import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
@@ -27,6 +26,7 @@ import { ProfessorCadastroService } from './professor-cadastro.service';
 import { ProfessorFormComponent } from './professor-form/professor-form.component';
 import { ProfessorInfoComponent } from './professor-info/professor-info.component';
 import { ProfessorInfoService } from './professor-info.service';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,7 @@ import { ProfessorInfoService } from './professor-info.service';
     HttpClientModule,
     FlashMessagesModule,
     NgxPaginationModule,
+    SlimLoadingBarModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '',

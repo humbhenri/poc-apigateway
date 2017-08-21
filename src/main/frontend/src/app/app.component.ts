@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from './authentication.service';
-import {User} from './user';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
+import { User } from './user';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
   selector: 'app-root',
