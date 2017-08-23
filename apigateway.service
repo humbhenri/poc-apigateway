@@ -4,7 +4,7 @@ After=syslog.target service-discovery.service
 
 [Service]
 User=ubuntu
-ExecStart=java -jar -Dspring.profiles.active=ec2 /home/ubuntu/apigateway-0.0.1-SNAPSHOT.jar
+ExecStart=/usr/bin/java -jar -Dspring.profiles.active=ec2 /home/ubuntu/apigateway-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
 
 [Install]
