@@ -1,0 +1,7 @@
+<h3>Minhas turmas</h3>
+<hr>
+<ul>
+  <li *ngFor="let turma of turmas | async">
+    <a href="" (click)="lancaNotas(turma, $event)"> {{turma.disciplina.nome}} </a>
+  </li>
+</ul>

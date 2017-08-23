@@ -1,0 +1,14 @@
+<h4>Turma: {{turma}}</h4>
+<hr>
+<h4>Aluno: {{model?.aluno?.nome}}</h4>
+<hr>
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="form-group">
+    <label for="nota">Nota</label>
+    <input type="number" name="nota" id="nota" required class="form-control" [(ngModel)]="model.nota" #nota="ngModel" min="0" max="10">
+    <div [hidden]="nota.valid || nota.pristine" class="alert alert-danger">
+      Nota é obrigatório
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">Salvar</button>
+</form>

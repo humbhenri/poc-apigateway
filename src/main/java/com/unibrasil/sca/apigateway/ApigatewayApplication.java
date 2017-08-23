@@ -71,6 +71,7 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration cors = new CorsConfiguration().applyPermitDefaultValues();
         cors.addAllowedMethod(HttpMethod.DELETE);
+        cors.addAllowedMethod(HttpMethod.PATCH);
         source.registerCorsConfiguration("/**", cors);
         return source;
     }

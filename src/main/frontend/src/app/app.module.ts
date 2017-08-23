@@ -27,6 +27,12 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
 import { ProfessorInfoComponent } from './professor-info/professor-info.component';
 import { ProfessorInfoService } from './professor-info.service';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { ProfessorComponent } from './professor/professor.component';
+import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
+import { AvaliacaoService } from './avaliacao.service';
+import { TurmaComponent } from './turma/turma.component';
+import { OrderModule } from 'ngx-order-pipe';
+import { NotaComponent } from './nota/nota.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +49,10 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
     CoordenadorComponent,
     ProfessorFormComponent,
     ProfessorInfoComponent,
+    ProfessorComponent,
+    AvaliacaoComponent,
+    TurmaComponent,
+    NotaComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +61,7 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
     FlashMessagesModule,
     NgxPaginationModule,
     SlimLoadingBarModule.forRoot(),
+    OrderModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -112,6 +123,30 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
           },
         ]
       },
+      {
+        path: 'professor',
+        component: ProfessorComponent,
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: '',
+            children: [
+              {
+                path: 'avaliacao',
+                component: AvaliacaoComponent,
+              },
+              {
+                path: 'turma/:id',
+                component: TurmaComponent,
+              },
+              {
+                path: 'nota/:id',
+                component: NotaComponent
+              }
+            ],
+          }
+        ]
+      }
     ], { useHash: true })
   ],
   providers: [
@@ -122,6 +157,7 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
     TurmaService,
     ProfessorCadastroService,
     ProfessorInfoService,
+    AvaliacaoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
