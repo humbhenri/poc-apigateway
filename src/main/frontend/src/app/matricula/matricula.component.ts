@@ -43,8 +43,6 @@ import {
 })
 export class MatriculaComponent implements OnInit {
 
-  turmasEscolhidas: Array<Turma> = [];
-
   turmasDisponiveis: Array<Turma> = [];
 
   inscricao: Inscricao;
@@ -73,26 +71,10 @@ export class MatriculaComponent implements OnInit {
 
   onSelect(turma: Turma): void {
     turma.selecionado = !turma.selecionado;
-    const index = this.turmasEscolhidas.map(d => d.id).indexOf(turma.id);
-    if (index > -1) {
-      this.turmasEscolhidas.splice(index, 1);
-    } else {
-      this.turmasEscolhidas.push(turma);
-    }
-  }
-
-  getCSSClasses(turma: Turma) {
-    if (this.turmasEscolhidas.filter(d => d.id === turma.id).length > 0) {
-      return 'btn btn-danger btn-sm pull-right';
-    }
-    return 'btn btn-primary btn-sm pull-right';
   }
 
   getLabel(turma: Turma) {
-    if (this.turmasEscolhidas.filter(d => d.id === turma.id).length > 0) {
-      return 'Remover';
-    }
-    return 'Matricular';
+    return turma.selecionado ? 'Remover' : 'Matricular';
   }
 
   fazerProposta() {
@@ -104,12 +86,12 @@ export class MatriculaComponent implements OnInit {
     this.alunoService.alunoInfo()
       .flatMap(aluno => {
         console.log('Enviando proposta de matrícula para o aluno ' + aluno.nome);
-        const inscricao = new Inscricao(null, aluno, this.turmasEscolhidas);
+        const inscricao = new Inscricao(null, aluno, this.turmasDisponiveis.filter(turma => turma.selecionado));
         return this.http.post(Config.API_BASE + 'matricula/inscricao', inscricao);
       })
       .subscribe((data) => {
-        this.turmasEscolhidas = [];
         window.scrollTo(0, 0);
+        this.turmasDisponiveis.forEach(turma => turma.selecionado = false);
         this.flash.show('Inscrição criada com sucesso', { cssClass: 'alert-success' });
         this.carregarProposta();
         this.mostraTurmas = false;
