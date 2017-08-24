@@ -12,11 +12,34 @@ import { Turma } from '../turma';
 import { TurmaService } from '../turma.service';
 import { Config } from "../config";
 import 'rxjs/Rx';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-matricula',
   templateUrl: './matricula.component.html',
   styleUrls: ['./matricula.component.css'],
+  animations: [
+    trigger('turmaState', [
+      state('inactive', style({
+        backgroundColor: '#286090',
+        transform: 'scale(1)',
+        'border-color': '#2e6da4',        
+      })),
+      state('active',   style({
+        backgroundColor: '#d9534f',
+        transform: 'scale(1.1)',
+        'border-color': '#d9534f',
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ])
+  ],
 })
 export class MatriculaComponent implements OnInit {
 
@@ -49,6 +72,7 @@ export class MatriculaComponent implements OnInit {
   }
 
   onSelect(turma: Turma): void {
+    turma.selecionado = !turma.selecionado;
     const index = this.turmasEscolhidas.map(d => d.id).indexOf(turma.id);
     if (index > -1) {
       this.turmasEscolhidas.splice(index, 1);

@@ -10,5 +10,6 @@ export class Turma {
     public semestre: number,
     public professor: Professor,
     public horarios: Horario[],
+    public selecionado = false,
   ) {}
 }

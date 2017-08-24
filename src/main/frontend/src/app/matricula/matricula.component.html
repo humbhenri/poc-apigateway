@@ -30,7 +30,9 @@
 					{{turma.disciplina.nome}} - {{turma.disciplina.id}}
 				</div>
 				<div class="col-sm-2">				
-					<button [ngClass]="getCSSClasses(turma)" (click)="onSelect(turma)">{{getLabel(turma)}}</button>
+					<button class="btn btn-primary btn-sm pull-right" 
+					[@turmaState]="turma.selecionado ? 'active' : 'inactive'"
+					(click)="onSelect(turma)">{{getLabel(turma)}}</button>
 				</div>
 			</div>
 	    </div>
