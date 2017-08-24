@@ -10,8 +10,6 @@ import { Config } from './config';
 @Injectable()
 export class AuthenticationService {
 
-  loggedIn = new EventEmitter<boolean>();
-
   constructor(private http: HttpClient) {
   }
 
@@ -26,7 +24,6 @@ export class AuthenticationService {
       .map((response: Response) => {
         localStorage.setItem('auth', btoa(username + ':' + password));
         localStorage.setItem('username', username);
-        this.loggedIn.emit(true);
         return 'OK';
       });
   }
@@ -34,7 +31,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('auth');
     localStorage.removeItem('username');
-    this.loggedIn.emit(false);
   }
 
   static getAuthorizationHeader() {
@@ -42,5 +38,9 @@ export class AuthenticationService {
       return 'Basic ' + localStorage.getItem('auth');
     }
     return null;
+  }
+
+  isLogged() {
+    return localStorage.getItem('auth') != null;
   }
 }

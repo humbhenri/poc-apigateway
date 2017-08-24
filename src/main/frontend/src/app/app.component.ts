@@ -10,13 +10,14 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 })
 export class AppComponent implements OnInit {
 
-  loggedIn = false;
+  get loggedIn() {
+    return this.auth.isLogged();
+  }
 
   constructor(private auth: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
-    this.auth.loggedIn.subscribe(logged => this.loggedIn = logged);
   }
 
   onClick(event: Event): void {
