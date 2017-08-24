@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class NotaComponent implements OnInit {
 
-  model: Object = {};
+  model: any = {};
 
   turma: string;
 
