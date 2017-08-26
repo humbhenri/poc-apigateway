@@ -19,7 +19,13 @@ export class CadastroProfessorComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.service.getProfessores().subscribe(data => this.professores = data);
+    this.service.getProfessores()
+      .catch(err => {
+        this.flash.show('Não foi possível obter os dados dos professores.', {cssClass: 'alert-danger'});
+        console.log(err);
+        return Observable.of(null);
+      })
+      .subscribe(data => this.professores = data);
   }
 
   delete(professor: Professor) {
