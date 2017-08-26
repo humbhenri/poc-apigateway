@@ -9,14 +9,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class AvaliacaoService {
 
-  private nomeTurma = new BehaviorSubject<string>("");
-
-  nomeTurmaAtual = this.nomeTurma.asObservable();
-
   constructor(private http: HttpClient) { }
 
   mudaNomeTurma(nome: string) {
-    this.nomeTurma.next(nome);
+    localStorage.setItem('nomeTurma', nome);
+  }
+
+  get nomeTurma() {
+    return localStorage.getItem('nomeTurma');
   }
 
   getTurma(professor: string): Observable<Turma[]> {

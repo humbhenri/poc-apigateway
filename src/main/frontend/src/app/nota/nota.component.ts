@@ -37,7 +37,7 @@ export class NotaComponent implements OnInit {
     })
     .subscribe(data => this.model = data);
 
-    this.service.nomeTurmaAtual.subscribe(data => this.turma = data);
+    this.turma = this.service.nomeTurma;
   }
 
   handleErr(err) {

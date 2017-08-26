@@ -37,7 +37,7 @@ export class TurmaComponent implements OnInit {
     })
     .subscribe(data => this.notas = data);
 
-    this.service.nomeTurmaAtual.subscribe(nome => this.nome = nome);
+    this.nome = this.service.nomeTurma;
   }
 
   handleErr(err) {
