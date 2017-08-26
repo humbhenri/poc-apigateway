@@ -30,13 +30,13 @@ export class Interceptor implements HttpInterceptor {
                 this.hideLoader();
             }
         },
-            err => {
-                if (err instanceof HttpErrorResponse && (err.status == 401 || err.status == 403)) {
-                    this.flash.show('Você não tem permissão de acessar essa área', { cssClass: 'alert-danger', timeout: 3000 });
-                    this.router.navigate(['/login']);
-                }
-                this.hideLoader();
-            });
+        err => {
+            if (err instanceof HttpErrorResponse && err.status == 403) {
+                this.flash.show('Você não tem permissão de acessar essa área', { cssClass: 'alert-danger', timeout: 3000 });
+                this.router.navigate(['/login']);
+            }
+            this.hideLoader();
+        });
     }
 
     showLoader() {
