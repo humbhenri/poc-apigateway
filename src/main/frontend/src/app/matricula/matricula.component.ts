@@ -29,7 +29,7 @@ import {
       state('inactive', style({
         backgroundColor: '#286090',
         transform: 'scale(1)',
-        'border-color': '#2e6da4',        
+        'border-color': 'rgb(40, 96, 144)',
       })),
       state('active',   style({
         backgroundColor: '#d9534f',
@@ -77,7 +77,8 @@ export class MatriculaComponent implements OnInit {
     return turma.selecionado ? 'Remover' : 'Matricular';
   }
 
-  fazerProposta() {
+  fazerProposta($e) {
+    $e.preventDefault();
     this.mostraTurmas = true;
     this.mostraFazerProposta = false;
   }

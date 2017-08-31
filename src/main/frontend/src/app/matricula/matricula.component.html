@@ -1,7 +1,7 @@
 <div class="jumbotron" *ngIf="mostraFazerProposta">
     <p class="lead">Você ainda não realizou nenhuma proposta de matrícula para este semestre.</p>
-    <p class="text-center">
-        <a class="btn btn-lg btn-success" role="button" (click)="fazerProposta()">
+    <p class="lead">
+        <a href="#" class="btn btn-lg btn-primary" role="button" (click)="fazerProposta($event)">
         Fazer proposta
     	</a>
     </p>
@@ -22,27 +22,27 @@
 </div>
 
 <div *ngIf="mostraTurmas">
-	<div class="panel panel-default" 
+	<div class="card"
 	    *ngFor="let turma of turmasDisponiveis | paginate: {itemsPerPage: 10, currentPage: p}">
-	    <div class="panel-heading">
+	    <div class="card-header">
 			<div class="row">
 				<div class="col-sm-10">
 					{{turma.disciplina.nome}} - {{turma.disciplina.id}}
 				</div>
-				<div class="col-sm-2">				
-					<button class="btn btn-primary btn-sm pull-right" 
+				<div class="col-sm-2">
+					<button class="btn btn-primary btn-sm pull-right"
 					[@turmaState]="turma.selecionado ? 'active' : 'inactive'"
 					(click)="onSelect(turma)">{{getLabel(turma)}}</button>
 				</div>
 			</div>
 	    </div>
-	    <div class="panel-body">
-	        Aulas: {{turma.disciplina.aulas}} 
-	        <br>Requisitos: {{turma.disciplina.requisitos | disciplina}} 
+	    <div class="card-body">
+	        Aulas: {{turma.disciplina.aulas}}
+	        <br>Requisitos: {{turma.disciplina.requisitos | disciplina}}
 	        <br> Créditos: {{turma.disciplina.creditos}}
-	        <br> Laboratórios: {{turma.disciplina.laboratorios}} 
+	        <br> Laboratórios: {{turma.disciplina.laboratorios}}
 	        <br> Professor: <a routerLink="../professor-info/{{turma.professor.id}}" >{{turma.professor.nome}}</a>
-	        <br> Horários: 
+	        <br> Horários:
 	        <table class="table table-bordered">
 	        	<tbody>
 		        	<tr *ngFor="let horario of getHorarios(turma)">
@@ -52,10 +52,8 @@
 	        </table>
 	    </div>
 	</div>
-	<div class="row">
-		<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
-			Enviar proposta
-		</a>
-	</div>
+	<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
+		Enviar proposta
+	</a>
 	<pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

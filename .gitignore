@@ -27,3 +27,4 @@ nbdist/
 src/main/frontend/node_modules
 src/main/frontend/node
 
+src/main/resources/application-ec2.properties
