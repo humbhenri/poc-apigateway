@@ -1,16 +1,13 @@
 <h4>{{nome}}</h4>
-<hr>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <th>Aluno</th>
-      <th>Nota</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let nota of notas | orderBy: 'aluno.nome'">
-        <td>{{nota.aluno.nome}}</td>
-        <td><a routerLink="/professor/nota/{{nota.id}}"> {{nota.nota}} </a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<table class="table table-responsive table-hover">
+  <thead>
+    <th>Aluno</th>
+    <th>Nota</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let nota of notas | orderBy: 'aluno.nome'">
+      <td>{{nota.aluno.nome}}</td>
+      <td><a routerLink="/professor/nota/{{nota.id}}"> {{nota.nota}} </a></td>
+    </tr>
+  </tbody>
+</table>
