@@ -4,6 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Turma } from '../turma';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-avaliacao',
@@ -17,11 +18,14 @@ export class AvaliacaoComponent implements OnInit {
   constructor(private service: AvaliacaoService, 
     private auth: AuthenticationService,
     private router: Router,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
-    this.turmas = this.service.getTurma(this.auth.username).do(event => {
-      console.log(event);
+    this.turmas = this.service.getTurma(this.auth.username).catch(err => {
+      this.flash.show('Não foi possível buscar as suas turmas.', {cssClass: 'alert-danger', timeout: 3000});
+      console.log(err);
+      return Observable.of(null);
     });
   }
 
