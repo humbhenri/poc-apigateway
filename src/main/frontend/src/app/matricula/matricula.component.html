@@ -14,11 +14,11 @@
 			{{turma.disciplina.nome}} - {{turma.disciplina.id}}
 		</li>
 	</ul>
-	<div class="text-center">
-		<a class="btn btn-danger" role="button" (click)="cancelarMatricula()">
+	<p class="lead">
+		<a class="btn btn-danger" href="#" role="button" (click)="cancelarMatricula($event)">
         	Cancelar matrícula
     	</a>
-	</div>
+	</p>
 </div>
 
 <div *ngIf="mostraTurmas">
@@ -52,8 +52,11 @@
 	        </table>
 	    </div>
 	</div>
-	<a class="btn btn-lg btn-primary pull-right" role="button" (click)="enviarProposta()">
-		Enviar proposta
-	</a>
+	<br>
+	<p class="d-flex justify-content-end">
+		<a class="btn btn-lg btn-primary" role="button" href="#" (click)="enviarProposta($event)">
+			Enviar proposta
+		</a>
+	</p>
 	<pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

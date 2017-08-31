@@ -83,7 +83,8 @@ export class MatriculaComponent implements OnInit {
     this.mostraFazerProposta = false;
   }
 
-  enviarProposta() {
+  enviarProposta($event) {
+    $event.preventDefault();
     this.alunoService.alunoInfo()
       .flatMap(aluno => {
         console.log('Enviando proposta de matrícula para o aluno ' + aluno.nome);
@@ -123,7 +124,8 @@ export class MatriculaComponent implements OnInit {
     }
   }
 
-  cancelarMatricula() {
+  cancelarMatricula($event) {
+    $event.preventDefault();
     this.alunoService.cancelarMatricula(this.inscricao.id)
       .subscribe(() => {
         this.flash.show('Cancelamento realizado com sucesso', { cssClass: 'alert-success' });
