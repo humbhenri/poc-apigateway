@@ -5,7 +5,10 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let menu of menus">
+      	<a class="nav-link" [routerLink]="menu.routerLink">{{menu.label}}</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="onClick($event)" *ngIf="loggedIn">Logout</a>
       </li>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MenuService} from '../menu.service';
 
 @Component({
   selector: 'app-professor',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfessorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private menuService: MenuService) {}
 
   ngOnInit() {
+    this.menuService.emitChange([
+      {
+        'routerLink': 'professor/avaliacao',
+        'label': 'Lançar notas'
+      }
+    ]);
   }
 
 }

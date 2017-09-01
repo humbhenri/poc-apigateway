@@ -34,6 +34,7 @@ import { AvaliacaoService } from './avaliacao.service';
 import { TurmaComponent } from './turma/turma.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { NotaComponent } from './nota/nota.component';
+import { MenuService } from './menu.service';
 
 @NgModule({
   declarations: [
@@ -160,6 +161,7 @@ import { NotaComponent } from './nota/nota.component';
     ProfessorCadastroService,
     ProfessorInfoService,
     AvaliacaoService,
+    MenuService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
