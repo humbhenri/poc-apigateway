@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../menu.service';
+import { AuthenticationService } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coordenador',
@@ -8,15 +9,14 @@ import { MenuService } from '../menu.service';
 })
 export class CoordenadorComponent implements OnInit {
 
-  constructor(private menuService: MenuService) { }
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
-  ngOnInit() {
-    this.menuService.emitChange([
-      {
-        'routerLink': 'coordenador/cadastro-professor',
-        'label': 'Professores'
-      },
-    ]);
+  ngOnInit() { }
+
+  onClick(event: Event): void {
+    event.preventDefault(); // Prevents browser following the link
+    this.auth.logout();
+    this.router.navigate(['/']);
   }
 
 }

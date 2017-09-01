@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlunoService } from './aluno.service';
-import { Observable } from 'rxjs/Observable';
-import {MenuService} from './menu.service';
+import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alunos',
@@ -9,19 +8,13 @@ import {MenuService} from './menu.service';
 })
 export class AlunoComponent implements OnInit {
 
-  constructor(private alunoService: AlunoService, 
-  private menuService: MenuService) {}
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
-  ngOnInit(): void {
-    this.menuService.emitChange([
-      {
-        'routerLink': 'aluno/aluno-info',
-        'label': 'Aluno'
-      },
-      {
-        'routerLink': 'aluno/matricula',
-        'label': 'Matrícula'
-      },
-    ]);
+  ngOnInit() { }
+
+  onClick(event: Event): void {
+    event.preventDefault(); // Prevents browser following the link
+    this.auth.logout();
+    this.router.navigate(['/']);
   }
 }
