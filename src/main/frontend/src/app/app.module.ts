@@ -35,6 +35,7 @@ import { TurmaComponent } from './turma/turma.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { NotaComponent } from './nota/nota.component';
 import { MenuService } from './menu.service';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MenuService } from './menu.service';
     NgxPaginationModule,
     SlimLoadingBarModule.forRoot(),
     OrderModule,
+    MyDatePickerModule,
     RouterModule.forRoot([
       {
         path: '',

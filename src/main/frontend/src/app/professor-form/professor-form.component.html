@@ -16,8 +16,11 @@
   </div>
   <div class="form-group">
     <label for="nascimento">Data de nascimento</label>
-    <input type="date" class="form-control" id="nascimento" placeholder="Data de nascimento" [ngModel]="model.nascimento | date:'yyyy-MM-dd'" 
+    <!-- <input type="date" class="form-control" id="nascimento" placeholder="Data de nascimento" [ngModel]="model.nascimento | date:'yyyy-MM-dd'"
       (ngModelChange)="model.nascimento = $event" name="nascimento">
+  </div> -->
+  <my-date-picker name="nascimento" [options]="myDatePickerOptions"
+    [(ngModel)]="date"></my-date-picker>
   </div>
   <div class="form-group">
     <label for="username">Nome de usuário</label>

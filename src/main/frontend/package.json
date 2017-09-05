@@ -25,6 +25,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "mydatepicker": "^2.0.29",
     "ng2-slim-loading-bar": "^4.0.0",
     "ngx-order-pipe": "^1.0.2",
     "ngx-pagination": "^3.0.1",

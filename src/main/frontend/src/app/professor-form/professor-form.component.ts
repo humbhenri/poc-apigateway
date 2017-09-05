@@ -3,8 +3,9 @@ import { Professor, Username } from '../professor';
 import { ProfessorCadastroService } from '../professor-cadastro.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/Operator';
 import { Observable } from 'rxjs/Observable';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-professor-form',
@@ -13,9 +14,15 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ProfessorFormComponent implements OnInit {
 
+  myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'yyyy-mm-dd',
+  };
+
+  date: any;
+
   model = new Professor(null, null, new Username(null, 1, null), null, null, null);
 
-  constructor(private service: ProfessorCadastroService, 
+  constructor(private service: ProfessorCadastroService,
     private flash: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute,
@@ -29,14 +36,25 @@ export class ProfessorFormComponent implements OnInit {
       } else {
         return Observable.of(new Professor(null, null, new Username(null, 1, null), null, null, null));
       }
-    }).subscribe((professor) => this.model = professor);
+    })
+    .first()
+    .subscribe((professor) => {
+      this.model = professor;
+      if (!!professor.nascimento) {
+        const nascimento = new Date(professor.nascimento);
+        this.date = {date: {
+                      year: nascimento.getFullYear(),
+                      month: nascimento.getMonth() + 1,
+                      day: nascimento.getDate(),
+        }};
+      }
+    });
   }
 
   onSubmit() {
-    // fix dia vindo errado como dia anterior.
-    if (typeof this.model.nascimento === 'string') {
-      this.model.nascimento = new Date(this.model.nascimento);
-      this.model.nascimento = new Date(this.model.nascimento.getTime() + Math.abs(this.model.nascimento.getTimezoneOffset()*60000));
+    if (!!this.date) {
+      this.model.nascimento = this.date.jsdate;
+      this.model.nascimento = new Date(this.model.nascimento.getTime() + Math.abs(this.model.nascimento.getTimezoneOffset() * 60000));
     }
     if (this.model.id) {
       this.atualizarProfessor();
